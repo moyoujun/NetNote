@@ -1,0 +1,53 @@
+﻿@model NotePagination
+
+
+@{ 
+    var pageIndex = Model.PageIndex;
+
+    var pageCount = Model.TotalCount;
+
+    var pageStart = pageIndex > 3 ? pageIndex - 2 : 1;
+
+    var pageEnd = pageStart + 4 > pageCount ? pageCount : pageStart + 4;
+}
+
+    <div class="container-fluid">
+        <nav class="nav-item">
+            <a asp-action="Add" class="nav-link active">Add New</a>
+        </nav>
+        @foreach (var item in Model.Notes)
+        {
+            <div>
+                <h3>@item.Title</h3>
+                <h5>Category: @item.Type.Name</h5>
+                <div class="content" id="md_@item.Id">@item.Content</div>
+                <hr />
+            </div>
+        }
+    </div>
+<nav class="nav">
+    <ul class="pagination">
+        <li class="@(pageIndex==1 ? "page-item disabled":"page-item")">
+            <a asp-action="Index" asp-route-pageindex="@(pageIndex==1? 1:pageIndex-1)"
+               class="page-link">
+                &laquo;
+            </a>
+        </li>
+
+        @for (int i = pageStart; i <= pageEnd; i++)
+        {
+            <li class="@(pageIndex == i ? "page-item active" : "page-item")">
+                <a asp-action="Index" asp-route-pageindex="@i" class="page-link">
+                    @i
+                </a>
+            </li>
+        }
+
+        <li class="@(pageIndex== pageCount? "page-item disabled":"page-item")">
+            <a asp-action="Index" asp-route-pageindex="@(pageIndex==pageCount? pageCount:pageIndex+1)"
+               class="page-link">
+                &raquo;
+            </a>
+        </li>
+    </ul>
+</nav>

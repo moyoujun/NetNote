@@ -1,0 +1,23 @@
+﻿@model List<NetNote.Models.NoteType>
+
+<div class="container-fluid">
+    <div class="row" style="margin-top: 10px; margin-bottom:10px;">
+         <form method="post" asp-action="Add">
+             <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" placeholder="Name" class="form-control" name="name"/>
+             </div>
+             <hr />
+         <p>
+                 <button type="submit" class="btn btn-light">Save</button>
+         </p>
+    </form>
+    </div>
+            @foreach (var item in Model)
+            {
+                <div>
+                    <div class="content" id="md_@item.Id">@item.Name</div>
+                    <hr />
+                </div>
+            }
+</div>
