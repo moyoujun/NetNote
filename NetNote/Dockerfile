@@ -13,4 +13,7 @@ RUN dotnet publish -c Release -o out
 FROM microsoft/aspnetcore:3.1
 WORKDIR /app
 COPY --from=build-env /app/out .
+
+EXPOSE 5000/tcp
+
 ENTRYPOINT ["dotnet", "NetNote.dll"]
